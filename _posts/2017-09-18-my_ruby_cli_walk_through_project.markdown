@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "My Ruby CLI Walk Through Project"
-date:   2017-09-18 20:48:26 +0000
+date:   2017-09-18 16:48:27 -0400
 ---
 
 **What is Cryptocurrency?**
@@ -31,19 +31,21 @@ I modeled my project to take a user input and display the currency name, price a
 
 Most of the challenges that I faced in this project revolved around getting the data to show up the way that I wanted. First challenge was getting first 10 currencies from the website. After much research, I was able to get the list of the first 10 currencies including the names, prices and market cap values by adding first(10).
 
+```
 def self.scraper_currecies
      doc = Nokogiri::HTML(open("https://coinmarketcap.com"))
-
      currency = self.new #initialize new currency
      currency.name = doc.css("td.currency-name a").map{|a| a.text}.first(10)
      currency.price = doc.css("td.no-wrap a.price").map{|a| a.text}.first(10)
      currency.marketcap = doc.css("td.market-cap").map{|marketcap| marketcap.text.strip}.first(10)
-
      currency
    end
+```
+
 
 Second challenge was to get the currency name, price and market cap of only one currency when the user enters in a number between 1 – 10. The third challenge was to account for invalid input if user enters anything besides numbers 1 - 12 or exit the program. After a lot of testing, I finally decided to use Each method inside an If statement and another nested If statement inside the Each method.
 
+```
 def menu
     puts "Select the currency name to see the current price"
     puts ""
@@ -65,6 +67,7 @@ def menu
       menu
     end
   end
+```
 
 I am glad I was able to overcome the challenges I faced and accomplish everything I wanted to do. I would like to have the user enter ‘list’ to see the list of top 10 currencies or exit to exit the program, but since the return from gets is always a string I found this to be the solution for the time being and ask the user to enter number 11 to get a list of currency and 12 to exit the program. I may make this enhancement in the future.
 
